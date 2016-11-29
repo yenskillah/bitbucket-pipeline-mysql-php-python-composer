@@ -2,14 +2,12 @@ FROM centos:6
 MAINTAINER Sonny Ramos <sonnysidramos@gmail.com>
 
 RUN \ 
- yum -y install git openssh-client curl software-properties-common gettext zip mysql-server mysql-client apt-transport-https scl-utils
+ yum -y install git openssh-client curl software-properties-common gettext zip unzip mysql-server mysql-client apt-transport-https scl-utils
 
 RUN \
  yum -y update &&\
  yum -y install epel-release &&\
  yum -y install wget &&\
- yum -y update &&\
- yum -y install epel-release &&\
  wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm &&\
  wget https://centos6.iuscommunity.org/ius-release.rpm &&\
  rpm -Uvh ius-release*.rpm &&\
@@ -25,7 +23,7 @@ RUN \
 RUN \
  curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest &&\
  chmod 755 /usr/local/bin/ecs-cli
- 
+
 
 ADD scripts /scripts
 RUN chmod -R 755 /scripts
