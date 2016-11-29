@@ -21,3 +21,7 @@ yum -y install python33 &&\
 curl "https://bootstrap.pypa.io/get-pip.py" -o "get-pip.py" &&\
 python get-pip.py &&\
 pip install boto3==1.3.0
+
+ADD scripts /scripts
+RUN chmod -R 755 /scripts
+ENV PATH $PATH:/scripts
