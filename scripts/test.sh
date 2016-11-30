@@ -7,6 +7,7 @@ export MYSQL_HOST=localhost
 export MYSQL_USERNAME=root
 export MYSQL_PASSWORD=root
 
+
 # must be run inside the project. this is a hack for codeship
 if [ ! -z ${1+x} ]; then
   cd $1
@@ -23,6 +24,6 @@ echo $AWS_EC2_VPC;
 echo $AWS_DEFAULT_REGION;
 echo $HOSTNAME;
 
-aws s3 sync s3://$AWS_EC2_VPC/$HOSTNAME/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
+aws s3 sync s3://vcard-vpc-be359cdb/asg-havells-ad-api-uat/alsocan /var/alsocan/ --region=ap-southeast-1 --exact-timestamps
 
 echo 'done'
