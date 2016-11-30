@@ -16,7 +16,7 @@ fi
 mkdir -p /var/alsocan
 aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 set > /var/alsocan/system/bash
-$IH_DB_SQL > /var/alsocan/config/ih_db.sql
+echo $IH_DB_SQL > /var/alsocan/config/ih_db.sql
 
 echo 'Config Setup Done.'
 
