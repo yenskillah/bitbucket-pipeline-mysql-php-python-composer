@@ -19,6 +19,8 @@ service mysqld start
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE havells_ad_uat; CREATE DATABASE havells_ih_uat; CREATE DATABASE havells_vc_uat;"
 mkdir -p /var/alsocan
 
-aws s3 sync s3://vcard-$AWS_EC2_VPC/asg-$HOSTNAME/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
+echo $AWS_EC2_VPC;
+
+aws s3 sync s3://$AWS_EC2_VPC/$HOSTNAME/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 
 echo 'done'
