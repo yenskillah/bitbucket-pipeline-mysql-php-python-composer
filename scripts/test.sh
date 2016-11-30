@@ -20,6 +20,7 @@ mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE have
 mkdir -p /var/alsocan
 
 echo $AWS_EC2_VPC;
+echo $AWS_DEFAULT_REGION;
 
 aws s3 sync s3://$AWS_EC2_VPC/$HOSTNAME/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 
