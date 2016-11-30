@@ -24,8 +24,6 @@ export DB_CONFIG={"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","dat
 echo $IH_DB_SQL > /var/alsocan/config/ih_db.sql
 cat /var/alsocan/config/ih_db.sql | base64 -d > /var/alsocan/config/ih_db.sql
 
-
-
 echo 'Config Setup Done.'
 
 #mysql start and settings
@@ -35,9 +33,15 @@ mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
 echo 'MySQL Done.'
 
+#loading bash profile
+source /var/alsocan/system/bash
 
 #install modules
 composer install
+
+#run artisan
+php artisan migrate
+php artisan db:seed
 
 echo 'Composer Install Done.'
 
