@@ -3,7 +3,7 @@
 # exit on error
 set -e
 
-export MYSQL_HOST=$MYSQL_HOST
+export MYSQL_HOST=localhost
 export MYSQL_USERNAME=root
 export MYSQL_PASSWORD=root
 export DB_AD=ad
