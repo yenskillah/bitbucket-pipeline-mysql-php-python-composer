@@ -21,6 +21,7 @@ mkdir -p /var/alsocan
 
 echo $AWS_EC2_VPC;
 echo $AWS_DEFAULT_REGION;
+echo $HOSTNAME;
 
 aws s3 sync s3://$AWS_EC2_VPC/$HOSTNAME/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 
