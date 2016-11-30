@@ -21,6 +21,10 @@ mkdir -p /var/alsocan
 
 aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 
+set > /var/alsocan/system/bash
+
+cat /var/alsocan/system/bash
+
 #install modules
 composer install
 
