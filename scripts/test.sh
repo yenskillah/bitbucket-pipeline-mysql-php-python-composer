@@ -32,7 +32,7 @@ echo 'Config Setup Done.'
 service mysqld start
 /usr/bin/mysqladmin -u root password root
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_AD; CREATE DATABASE $DB_IH; CREATE DATABASE $DB_VC; CREATE DATABASE $DB_OA;"
-mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD havells_ih_uat < /var/alsocan/config/ih_db.sql
+mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
 echo 'MySQL Done.'
 
 
