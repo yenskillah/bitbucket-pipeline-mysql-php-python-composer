@@ -51,14 +51,3 @@ php artisan migrate
 php artisan db:seed
 
 echo 'Composer Install Done.'
-
-
-
-bash: BASHOPTS: readonly variable
-bash: BASH_VERSINFO: readonly variable
-bash: EUID: readonly variable
-bash: PPID: readonly variable
-bash: SHELLOPTS: readonly variable
-bash: UID: readonly variable
-
-
