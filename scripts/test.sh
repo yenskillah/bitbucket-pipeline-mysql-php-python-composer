@@ -19,7 +19,7 @@ fi
 #config setup
 mkdir -p /var/alsocan
 aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
-set > /var/alsocan/system/bash
+#set > /var/alsocan/system/bash
 export DB_CONFIG={"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_AD","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"IH":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_IH","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"VC":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_VC","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"OA":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_OA","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null}}
 echo $IH_DB_SQL > /var/alsocan/config/ih_db.sql
 cat /var/alsocan/config/ih_db.sql | base64 -d > /var/alsocan/config/ih_db.sql
@@ -33,15 +33,17 @@ mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
 echo 'MySQL Done.'
 
-sed '/BASHOPTS/d' /var/alsocan/system/bash
-sed '/BASH_VERSINFO/d' /var/alsocan/system/bash
-sed '/EUID/d' /var/alsocan/system/bash
-sed '/PPID/d' /var/alsocan/system/bash
-sed '/SHELLOPTS/d' /var/alsocan/system/bash
-sed '/UID/d' /var/alsocan/system/bash
+#sed '/BASHOPTS/d' /var/alsocan/system/bash
+#sed '/BASH_VERSINFO/d' /var/alsocan/system/bash
+#sed '/EUID/d' /var/alsocan/system/bash
+#sed '/PPID/d' /var/alsocan/system/bash
+#sed '/SHELLOPTS/d' /var/alsocan/system/bash
+#sed '/UID/d' /var/alsocan/system/bash
 
 #loading bash profile
-source /var/alsocan/system/bash
+#source /var/alsocan/system/bash
+
+cat ~/.bash_profile
 
 #install modules
 composer install
