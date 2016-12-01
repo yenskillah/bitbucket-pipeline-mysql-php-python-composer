@@ -15,6 +15,11 @@ RUN \
  curl -sS https://getcomposer.org/installer | php -- --filename=composer --install-dir=/usr/bin
 
 RUN \
+wget http://stedolan.github.io/jq/download/linux64/jq &&\
+chmod +x ./jq &&\
+cp jq /usr/bin
+
+RUN \
  curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" &&\
  unzip awscli-bundle.zip &&\
  ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws &&\
