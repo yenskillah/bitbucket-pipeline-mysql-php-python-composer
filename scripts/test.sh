@@ -35,7 +35,7 @@ echo 'Config Setup Done.'
 #mysql start and settings
 service mysqld start
 #set username and password
-/usr/bin/mysqladmin -u $MYSQL_USERNAME $MYSQL_PASSWORD root
+/usr/bin/mysqladmin -u $MYSQL_USERNAME password $MYSQL_PASSWORD
 #create databases
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_AD; CREATE DATABASE $DB_IH; CREATE DATABASE $DB_VC; CREATE DATABASE $DB_OA;"
 
