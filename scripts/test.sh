@@ -24,8 +24,6 @@ fi
 aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
 #copy server.json and extract to /var/alsocan/parameters/bash
 jq -r ' to_entries | map("export \(.key)=\(.value);")[] ' /var/alsocan/parameters/server.json >> /var/alsocan/parameters/bash
-#load application profile
-source /var/alsocan/parameters/bash
 
 echo 'Config Setup Done.'
 
@@ -46,6 +44,9 @@ cat /var/alsocan/config/ih_db.sql | base64 -d > /var/alsocan/config/ih_db.sql
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
 
 echo 'MySQL Done.'
+
+#load application profile
+source /var/alsocan/parameters/bash
 
 ####################
 #APPLICATION INSTALL
