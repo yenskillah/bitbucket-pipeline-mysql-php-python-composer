@@ -16,37 +16,45 @@ if [ ! -z ${1+x} ]; then
   cd $1
 fi
 
-#config setup
-mkdir -p /var/alsocan
+#############
+#CONFIG SETUP
+#############
 
 #copy config from s3
 aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_DEFAULT_REGION --exact-timestamps
-
-export DB_CONFIG={"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_AD","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"IH":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_IH","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"VC":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_VC","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"OA":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_OA","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null}}
-echo $IH_DB_SQL > /var/alsocan/config/ih_db.sql
-cat /var/alsocan/config/ih_db.sql | base64 -d > /var/alsocan/config/ih_db.sql
-
-jq -r ' to_entries | map("export \(.key)=\(.value);")[] ' /tmp/server > /tmp/bash
+#copy server.json and extract to /var/alsocan/parameters/bash
+jq -r ' to_entries | map("export \(.key)=\(.value);")[] ' /var/alsocan/parameters/server.json >> /var/alsocan/parameters/bash
+#load application profile
+source /var/alsocan/parameters/bash
 
 echo 'Config Setup Done.'
 
+######
+#MYSQL
+######
 #mysql start and settings
 service mysqld start
-/usr/bin/mysqladmin -u root password root
+#set username and password
+/usr/bin/mysqladmin -u $MYSQL_USERNAME $MYSQL_PASSWORD root
+#create databases
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_AD; CREATE DATABASE $DB_IH; CREATE DATABASE $DB_VC; CREATE DATABASE $DB_OA;"
+
+#set to local database
+export DB_CONFIG={"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_AD","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"IH":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_IH","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"VC":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_VC","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"OA":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_OA","username":"root","password":"root","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null}}
+echo $IH_DB_SQL > /var/alsocan/config/ih_db.sql
+cat /var/alsocan/config/ih_db.sql | base64 -d > /var/alsocan/config/ih_db.sql
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
+
 echo 'MySQL Done.'
 
-
-jq -r ' to_entries | map("export \(.key)=\(.value);")[] ' /var/alsocan/parameters/server.json >> /var/alsocan/parameters/bash
-
-#loading bash profile
-source /var/alsocan/system/bash
-
-#install modules
+####################
+#APPLICATION INSTALL
+####################
 composer install
 
-#run artisan
+####################
+#DATABASE INSTALL
+####################
 php artisan migrate
 php artisan db:seed
 
