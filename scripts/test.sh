@@ -33,6 +33,13 @@ mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD -e "CREATE DATABASE $DB_
 mysql -h$MYSQL_HOST -u$MYSQL_USERNAME -p$MYSQL_PASSWORD $DB_IH < /var/alsocan/config/ih_db.sql
 echo 'MySQL Done.'
 
+sed '/BASHOPTS/d' /var/alsocan/system/bash
+sed '/BASH_VERSINFO/d' /var/alsocan/system/bash
+sed '/EUID/d' /var/alsocan/system/bash
+sed '/PPID/d' /var/alsocan/system/bash
+sed '/SHELLOPTS/d' /var/alsocan/system/bash
+sed '/UID/d' /var/alsocan/system/bash
+
 #loading bash profile
 source /var/alsocan/system/bash
 
@@ -44,4 +51,14 @@ php artisan migrate
 php artisan db:seed
 
 echo 'Composer Install Done.'
+
+
+
+bash: BASHOPTS: readonly variable
+bash: BASH_VERSINFO: readonly variable
+bash: EUID: readonly variable
+bash: PPID: readonly variable
+bash: SHELLOPTS: readonly variable
+bash: UID: readonly variable
+
 
