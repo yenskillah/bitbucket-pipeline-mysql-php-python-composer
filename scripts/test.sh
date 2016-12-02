@@ -69,8 +69,8 @@ echo 'DB Install Done.'
 #####################
 #TEST THE APPLICATION
 #####################
-vendor/bin/phpunit app/Modules/Core/tests
-vendor/bin/phpunit app/Modules/Card/tests
-vendor/bin/phpunit app/Modules/User/tests
-vendor/bin/phpunit app/Modules/Admin/tests
+# vendor/bin/phpunit app/Modules/Core/tests
+# vendor/bin/phpunit app/Modules/Card/tests
+# vendor/bin/phpunit app/Modules/User/tests
+# vendor/bin/phpunit app/Modules/Admin/tests
 
