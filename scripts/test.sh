@@ -30,6 +30,9 @@ echo 'export DB_CONFIG={"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306
 
 echo 'Config Setup Done.'
 
+
+cat /var/alsocan/parameters/bash
+
 ######
 #MYSQL
 ######
