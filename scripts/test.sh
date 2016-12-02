@@ -56,10 +56,21 @@ source /var/alsocan/parameters/bash
 ####################
 composer install
 
+echo 'Composer Install Done.'
+
 ####################
 #DATABASE INSTALL
 ####################
 php artisan migrate
 php artisan db:seed
 
-echo 'Composer Install Done.'
+echo 'DB Install Done.'
+
+#####################
+#TEST THE APPLICATION
+#####################
+vendor/bin/phpunit app/Modules/Core/tests
+vendor/bin/phpunit app/Modules/Card/tests
+vendor/bin/phpunit app/Modules/User/tests
+vendor/bin/phpunit app/Modules/Admin/tests
+
