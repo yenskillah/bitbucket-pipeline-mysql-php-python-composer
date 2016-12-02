@@ -26,12 +26,9 @@ aws s3 sync s3://$AWS_S3_VPC/$AWS_S3_BUCKET/alsocan /var/alsocan/ --region=$AWS_
 jq -r ' to_entries | map("export \(.key)=\(.value);")[] ' /var/alsocan/parameters/server.json >> /var/alsocan/parameters/bash
 
 #set to local database
-echo '{"AD":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_AD","username":"$MYSQL_USERNAME","password":"$MYSQL_PASSWORD","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"IH":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_IH","username":"$MYSQL_USERNAME","password":"$MYSQL_PASSWORD","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"VC":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_VC","username":"$MYSQL_USERNAME","password":"$MYSQL_PASSWORD","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null},"OA":{"driver":"mysql","host":"$MYSQL_HOST","port":"3306","database":"$DB_OA","username":"$MYSQL_USERNAME","password":"$MYSQL_PASSWORD","charset":"utf8","collation":"utf8_unicode_ci","prefix":"","strict":false,"engine":null}};' >> /var/alsocan/config/db_local.json
-
-echo 'export DB_CONFIG=/var/alsocan/config/db_local.json;' >> /var/alsocan/parameters/bash
+echo 'export DB_CONFIG=/var/alsocan/config/db_test.json;' >> /var/alsocan/parameters/bash
 
 echo 'Config Setup Done.'
-
 
 cat /var/alsocan/parameters/bash
 
